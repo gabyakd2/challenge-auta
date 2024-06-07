@@ -1,6 +1,6 @@
 .containerCardLogin{
   display: flex;
-  width: 80%;
+  width: 70%;
   border-radius: 15px;
   text-align: center;
   box-shadow: 5px 10px 8px 2px rgba(62, 62, 62, 0.3);
@@ -36,6 +36,7 @@
   width: 50%;
   align-items: center;
   background-color: #864BFA;
+  /* background-color: #212121; */
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
 }
@@ -48,17 +49,23 @@
   }
 }
 
-.containerSecontLoginInputs{
+.containerSecondLoginInputs{
   width: 70%;
 }
 
 .logoAuta{
-  width: 200px;
+  width: 60%;
+  height: auto;
   margin: 15% 0px 15% 0px;
 }
 
 .inputsLogin{
   margin: 15px 0px 15px 0px;
+}
+
+.errorLogin{
+  color: #F65D33;
+  font-weight: bold;
 }
 
 .buttonSignIn{
@@ -75,6 +82,7 @@
 .redirectRegister{
   font-weight: bold;
   color: #0cb7f2;
+  /* color: #FFFD00; */
   /* color: #a9e9a4; */
   text-decoration: none;
 }
