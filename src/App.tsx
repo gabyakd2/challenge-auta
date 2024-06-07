@@ -1,10 +1,9 @@
 // import Home from "./pages/Home/HomeMain";
-import LoginMain from "./pages/Login/LoginMain";
 import { useState } from "react";
-import Home from "./pages/Home/HomeMain";
 //Importaciones de firebase
 import { aplicationFirebase } from "./credentials";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import RoutesMain from "./RoutesMain";
 const auth = getAuth(aplicationFirebase);
 
 function App() {
@@ -16,11 +15,9 @@ function App() {
       setUsername(null);
     }
   });
+  console.log(username)
   return (
-    <div>
-      {username ? <Home /> : <LoginMain />}
-      {/* <LoginMain /> */}
-    </div>
+    <RoutesMain />
   );
 }
 
