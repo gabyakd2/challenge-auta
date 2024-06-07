@@ -1,15 +1,18 @@
-// import { getAuth, signOut } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
+const auth = getAuth();
+signOut(auth).then(() => {
+  // Sign-out successful.
+}).catch((error) => {
+  console.error(error)
+});
 
-// const auth = getAuth();
-// signOut(auth).then(() => {
-//   // Sign-out successful.
-// }).catch((error) => {
-//   // An error happened.
-// });
 
 function Home() {
   return (
-    <div>Home</div>
+    <div>
+      <p>HOME</p>
+      <button onClick={() => signOut(auth)}>Logout</button>
+    </div>
   )
 }
 
