@@ -1,0 +1,83 @@
+.containerCardLogin{
+  display: flex;
+  width: 80%;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 5px 10px 8px 2px rgba(62, 62, 62, 0.3);
+}
+@media screen and (width < 700px) {
+  .containerCardLogin{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.containerLoginText{
+  width: 50%;
+  background-image: url("../../../../assets/bg-car.jpg");
+  background-position: center;
+  background-size: cover;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+@media screen and (width < 700px) {
+  .containerLoginText{
+    /* width: 100%;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 0px; */
+    display: none;
+  }
+}
+
+.containerLoginInputs{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  align-items: center;
+  background-color: #864BFA;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+@media screen and (width < 700px) {
+  .containerLoginInputs{
+    width: 100%;
+    /* border-top-right-radius: 0px;
+    border-bottom-left-radius: 15px; */
+    border-radius: 15px;
+  }
+}
+
+.containerSecontLoginInputs{
+  width: 70%;
+}
+
+.logoAuta{
+  width: 200px;
+  margin: 15% 0px 15% 0px;
+}
+
+.inputsLogin{
+  margin: 15px 0px 15px 0px;
+}
+
+.buttonSignIn{
+  margin: 25px 0px 25px 0px;
+  /* width: 80%; */
+}
+
+.textRegister{
+  color: white;
+  font-weight: lighter;
+  font-size: 17px;
+}
+
+.redirectRegister{
+  font-weight: bold;
+  color: #0cb7f2;
+  /* color: #a9e9a4; */
+  text-decoration: none;
+}
+.redirectRegister:hover{
+  text-decoration: underline;
+}
