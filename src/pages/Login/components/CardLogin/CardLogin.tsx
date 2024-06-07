@@ -4,6 +4,7 @@ import styles from "./card-login.module.css";
 // Importacion de firebase
 import { aplicationFirebase } from "../../../../credentials";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useState } from "react";
 
 const auth = getAuth(aplicationFirebase);
 
@@ -13,18 +14,24 @@ interface IInputs {
 }
 
 function CardLogin() {
-  const { register, handleSubmit, watch } = useForm<IInputs>();
+  const [ errorLogin, setErrorLogin ] = useState<string>("");
+  const { register, handleSubmit, watch , formState: { errors }, } = useForm<IInputs>();
   const onSubmit: SubmitHandler<IInputs> = async (data) => {
-    const email = watch("email")
-    const password = watch("password")
-    await signInWithEmailAndPassword(auth, email, password);
+    const email = watch("email");
+    const password = watch("password");
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      setErrorLogin("El usuario o contraseña no coinciden");
+    }
     console.log(data);
   };
+
   return (
     <div className={styles.containerCardLogin}>
       <div className={styles.containerLoginText}></div>
       <div className={styles.containerLoginInputs}>
-        <div className={styles.containerSecontLoginInputs}>
+        <div className={styles.containerSecondLoginInputs}>
           <img
             className={styles.logoAuta}
             src="https://www.auta.com.ar/static/media/logo-auta.1ad353ae5985c99b7417.png"
@@ -37,14 +44,35 @@ function CardLogin() {
                 label="Correo electronico"
                 variant="outlined"
                 fullWidth
-                {...register("email")}
+                error={!!errors.email || !!errorLogin}
+                helperText={errors.email?.message}
+                {...register("email", { 
+                  required: "El correo es obligatorio",
+                  pattern: {
+                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                    message: "El formato del correo electrónico no es válido",
+                  },
+                })}
                 sx={{
-                  // Root class for the input field
+                   // Estilos de la etiqueta error
+                  "& label.Mui-error": {
+                    color: "#F65D33",
+                  },
+                  // Estilos de color de borde en error
+                  "& .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#F65D33", // Cambia el color del borde cuando está en modo outlined
+                  },
+                  // Estilos del texto en error
+                  "& .MuiFormHelperText-root.Mui-error": {
+                    color: "#F65D33",
+                    fontWeight: "bold"
+                  },
+                  // Estilos de input
                   "& .MuiOutlinedInput-root": {
                     color: "#fff",
                     fontFamily: "Arial",
                     fontWeight: "bold",
-                    // Class for the border around the input field
+                    // Estilos de los bordes
                     "& .MuiOutlinedInput-notchedOutline": {
                       borderColor: "#fff",
                       borderWidth: "2px",
@@ -55,7 +83,7 @@ function CardLogin() {
                       },
                     },
                   },
-                  // Class for the label of the input field
+                  // Estilos de place holder
                   "& .MuiInputLabel-outlined": {
                     color: "#fff",
                     fontWeight: "bold",
@@ -68,9 +96,28 @@ function CardLogin() {
                 id="password"
                 label="Contraseña"
                 variant="outlined"
+                type="password"
+                error={!!errors.password || !!errorLogin}
+                helperText={errors.password?.message}
                 fullWidth
-                {...register("password")}
+                {...register("password", {
+                  required: "La contraseña es obligatoria",
+
+                })}
                 sx={{
+                  // Estilos de la etiqueta error
+                  "& label.Mui-error": {
+                    color: "#F65D33",
+                  },
+                  // Estilos de color de borde en error
+                  "& .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#F65D33", // Cambia el color del borde cuando está en modo outlined
+                  },
+                  // Estilos del texto en error
+                  "& .MuiFormHelperText-root.Mui-error": {
+                    color: "#F65D33",
+                    fontWeight: "bold"
+                  },
                   // Estilos del input
                   "& .MuiOutlinedInput-root": {
                     color: "#fff",
@@ -106,6 +153,7 @@ function CardLogin() {
                 Ingresar
               </Button>
             </div>
+            {errorLogin && <p className={styles.errorLogin}>{errorLogin}</p>}
           </form>
           <div className={styles.buttonSignIn}>
             <p className={styles.textRegister}>
