@@ -1,10 +1,12 @@
+import { useState } from "react";
 import { Button, TextField } from "@mui/material";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { textFieldStylesEmail, textFieldStylesPassword } from "./InputsStyles";
 import styles from "./card-login.module.css";
 // Importacion de firebase
 import { aplicationFirebase } from "../../../../credentials";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const auth = getAuth(aplicationFirebase);
 
@@ -16,6 +18,7 @@ interface IInputs {
 function CardLogin() {
   const [ errorLogin, setErrorLogin ] = useState<string>("");
   const { register, handleSubmit, watch , formState: { errors }, } = useForm<IInputs>();
+
   const onSubmit: SubmitHandler<IInputs> = async (data) => {
     const email = watch("email");
     const password = watch("password");
@@ -53,42 +56,7 @@ function CardLogin() {
                     message: "El formato del correo electrónico no es válido",
                   },
                 })}
-                sx={{
-                   // Estilos de la etiqueta error
-                  "& label.Mui-error": {
-                    color: "#F65D33",
-                  },
-                  // Estilos de color de borde en error
-                  "& .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#F65D33", // Cambia el color del borde cuando está en modo outlined
-                  },
-                  // Estilos del texto en error
-                  "& .MuiFormHelperText-root.Mui-error": {
-                    color: "#F65D33",
-                    fontWeight: "bold"
-                  },
-                  // Estilos de input
-                  "& .MuiOutlinedInput-root": {
-                    color: "#fff",
-                    fontFamily: "Arial",
-                    fontWeight: "bold",
-                    // Estilos de los bordes
-                    "& .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "#fff",
-                      borderWidth: "2px",
-                    },
-                    "&:hover:not(.Mui-focused)": {
-                      "& .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "#b5b5b5",
-                      },
-                    },
-                  },
-                  // Estilos de place holder
-                  "& .MuiInputLabel-outlined": {
-                    color: "#fff",
-                    fontWeight: "bold",
-                  },
-                }}
+                sx={textFieldStylesEmail}
               />
             </div>
             <div className={styles.inputsLogin}>
@@ -104,43 +72,7 @@ function CardLogin() {
                   required: "La contraseña es obligatoria",
 
                 })}
-                sx={{
-                  // Estilos de la etiqueta error
-                  "& label.Mui-error": {
-                    color: "#F65D33",
-                  },
-                  // Estilos de color de borde en error
-                  "& .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#F65D33", // Cambia el color del borde cuando está en modo outlined
-                  },
-                  // Estilos del texto en error
-                  "& .MuiFormHelperText-root.Mui-error": {
-                    color: "#F65D33",
-                    fontWeight: "bold"
-                  },
-                  // Estilos del input
-                  "& .MuiOutlinedInput-root": {
-                    color: "#fff",
-                    fontFamily: "Arial",
-                    fontWeight: "bold",
-                    // Estilos de los bordes
-                    "& .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "#fff",
-                      borderWidth: "2px",
-                    },
-                    // Estilos del input al hacer hover
-                    "&:hover:not(.Mui-focused)": {
-                      "& .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "#b5b5b5",
-                      },
-                    },
-                  },
-                  // Estilos de place holder
-                  "& .MuiInputLabel-outlined": {
-                    color: "#fff",
-                    fontWeight: "bold",
-                  },
-                }}
+                sx={textFieldStylesPassword}
               />
             </div>
             <div className={styles.buttonSignIn}>
@@ -158,9 +90,9 @@ function CardLogin() {
           <div className={styles.buttonSignIn}>
             <p className={styles.textRegister}>
               ¿No eres miembro?{" "}
-              <a href="" className={styles.redirectRegister}>
+              <Link to="/register" className={styles.redirectRegister}>
                 Crea una nueva cuenta
-              </a>
+              </Link>
             </p>
           </div>
         </div>
